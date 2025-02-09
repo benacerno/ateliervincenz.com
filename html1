@@ -4,137 +4,125 @@
   <meta charset="UTF-8">
   <title>Atelier Vincenz</title>
   <style>
-    /* Basis-Layout für die gesamte Seite */
+    /* Basislayout */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      /* Zartrosa Hintergrund wie in deinem Entwurf */
-      background-color: #fceaea;
-      /* Einheitliche Schrift */
+      background-color: #f7f2f2;
       font-family: "Courier New", Courier, monospace;
-      font-size: 16px;
-      line-height: 1.2;
-    }
-
-    body {
+      font-size: 11px;
+      line-height: 1;
       display: flex;
-      /* Links ausrichten, vertikal zentrieren */
       justify-content: flex-start;
       align-items: center;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"><line x1="15" y1="0" x2="15" y2="30" stroke="black" stroke-width="1"/><line x1="0" y1="15" x2="30" y2="15" stroke="black" stroke-width="1"/></svg>') 15 15, crosshair;
     }
 
-    /* Das Rechteck von 91 x 61 mm 
-       (ohne abweichende Hintergrundfarbe => wirkt gleich wie Seite)
-    */
+    /* Karte mit SVG-Rahmen */
     .card {
       position: relative;
       width: 91mm;
       height: 61mm;
-      margin-left: 50px; /* Den linken Abstand ggf. anpassen */
-      border: 1px solid black;
-      box-sizing: border-box;
       padding: 10px;
+      margin-left: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease-in-out;
     }
 
-    /* Pluszeichen in den Ecken */
-    .corner {
+    /* Rotationseffekte */
+    .rotate-0 { transform: rotate(0deg); }
+    .rotate-90 { transform: rotate(90deg); }
+    .rotate--90 { transform: rotate(-90deg); }
+
+    /* SVG für anpassbaren Rand mit überlappenden Ecken */
+    .border-svg {
       position: absolute;
-      font-weight: bold;
-      font-size: 16px; /* selbe Schriftgrösse wie der Text */
-    }
-    .corner-top-left {
-      top: 0; left: 0;
-      transform: translate(-50%, -50%);
-    }
-    .corner-top-right {
-      top: 0; right: 0;
-      transform: translate(50%, -50%);
-    }
-    .corner-bottom-right {
-      bottom: 0; right: 0;
-      transform: translate(50%, 50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
 
-    /* Vertikaler Text am rechten Rand der Karte */
+    /* Cursor wird dicker über Texten */
+    .text-top:hover, .text-bottom:hover, .vertical-text:hover {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"><line x1="15" y1="0" x2="15" y2="30" stroke="black" stroke-width="2"/><line x1="0" y1="15" x2="30" y2="15" stroke="black" stroke-width="2"/></svg>') 15 15, crosshair;
+    }
+
+    /* Vertikaler Text */
     .vertical-text {
       position: absolute;
       top: 50%;
-      right: -40px; /* Anpassen, bis es optisch stimmig ist */
+      right: -120px;
       transform: translateY(-50%) rotate(90deg);
-      transform-origin: center center;
-      color: #555;
+      color: #a6a2a2;
+      cursor: pointer;
     }
 
-    /* Zickzack-Unterstreichung: 
-       Wir nutzen ein Pseudo-Element mit repeating-linear-gradient.
-       Da Courier New monospaced ist, lässt sich so eine 
-       halbwegs “punktgenaue” Zickzack-Linie erzeugen.
-     */
+    /* Zickzack-Unterstreichung */
     .zigzag-underline {
       position: relative;
-      text-decoration: none; /* normale Unterstreichung unterdrücken */
-      display: inline-block; /* erlaubt exakte Breite für das Pseudo-Element */
+      display: inline-block;
     }
-
-    .zigzag-underline::after {
-      content: "";
+    .zigzag-underline svg {
       position: absolute;
       left: 0;
-      bottom: 0;
-      width: 100%;
-      /* Höhe der Zickzack-Linie; ggf. anpassen */
+      bottom: -1px;
+      width: 7ch;
       height: 2px;
-      /* Wiederholendes Muster als Zickzack:
-         - 135deg: diagonale Ausrichtung
-         - Der „Schachbrett“-Effekt aus Schwarzem Streifen / Transparent
-         - 2 Pixel Schwarz, dann 2 Pixel transparent = „Zick-Zack“ 
-         Passen die Werte an, bis es sauber unter die Buchstaben passt.
-      */
-      background-image: repeating-linear-gradient(
-        135deg,
-        black 0px,
-        black 2px,
-        transparent 2px,
-        transparent 4px
-      );
     }
 
-    /* Abstände entfernen, falls gewünscht */
-    .no-margin {
-      margin: 0;
-      padding: 0;
-    }
+    /* Textpositionen */
+    .text-top { position: absolute; bottom: 165px; right: 160px; cursor: pointer; }
+    .text-bottom { position: absolute; bottom: 30px; right: -20px; transform: rotate(-90deg); cursor: pointer; }
   </style>
+  <script>
+    function setRotation(degrees) {
+      const card = document.querySelector('.card');
+      card.className = 'card';
+      if (degrees === 90) card.classList.add('rotate-90');
+      else if (degrees === -90) card.classList.add('rotate--90');
+      else card.classList.add('rotate-0');
+    }
+  </script>
 </head>
 <body>
 
-  <div class="card">
-    <!-- Plus-Zeichen in den Ecken -->
-    <div class="corner corner-top-left">+</div>
-    <div class="corner corner-top-right">+</div>
-    <div class="corner corner-bottom-right">+</div>
-
-    <!-- Vertikaler Randtext -->
-    <div class="vertical-text">
-      website (and office) in the making
+  <div class="card rotate-0">
+    <svg class="border-svg" viewBox="0 0 200 130" preserveAspectRatio="none">
+      <line x1="0" y1="10" x2="0" y2="0" stroke="black" stroke-width="1"/>
+      <line x1="0" y1="0" x2="10" y2="0" stroke="black" stroke-width="1"/>
+      <line x1="190" y1="0" x2="200" y2="0" stroke="black" stroke-width="1"/>
+      <line x1="200" y1="0" x2="200" y2="10" stroke="black" stroke-width="1"/>
+      <line x1="200" y1="120" x2="200" y2="130" stroke="black" stroke-width="1"/>
+      <line x1="200" y1="130" x2="190" y2="130" stroke="black" stroke-width="1"/>
+      <line x1="10" y1="130" x2="0" y2="130" stroke="black" stroke-width="1"/>
+      <line x1="0" y1="130" x2="0" y2="120" stroke="black" stroke-width="1"/>
+    </svg>
+    
+    <div class="vertical-text" onclick="setRotation(-90)">website (and office) in the making</div>
+    <div class="text-top" onclick="setRotation(0)">
+      <p>Atelier <span class="zigzag-underline"><span class="zigzag-text">Vincenz</span>
+        <svg viewBox="0 0 112 6" preserveAspectRatio="none">
+          <path d="M0,0 L4,6 L8,0 L12,6 L16,0 L20,6 L24,0 L28,6 L32,0 L36,6
+                   L40,0 L44,6 L48,0 L52,6 L56,0 L60,6 L64,0 L68,6 L72,0 L76,6
+                   L80,0 L84,6 L88,0 L92,6 L96,0 L100,6 L104,0 L108,6 L112,0"
+                stroke="black" stroke-width="1" fill="none" />
+        </svg></span></p>
+      <p>office@ateliervincenz.com</p>
     </div>
 
-    <!-- Inhalt (linksbündig) -->
-    <p class="no-margin">
-      Atelier <span class="zigzag-underline">Vincenz</span>
-    </p>
-    <p class="no-margin">office@ateliervincenz.com</p>
-
-    <br />
-
-    <p class="no-margin">Diego Vincenz</p>
-    <p class="no-margin">Dipl. MSc Arch AAM</p>
-    <p class="no-margin">office@ateliervincenz.com</p>
-    <p class="no-margin">+41 078 940 39 54</p>
+    <div class="text-bottom" onclick="setRotation(90)">
+      <p>Diego Vincenz</p>
+      <p>dv1@ateliervincenz.com</p>
+      <p>Dipl. MSc Arch AAM</p>
+      <p>+41 078 940 39 54</p>
+    </div>
   </div>
 
 </body>
 </html>
-
