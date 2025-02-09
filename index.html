@@ -18,7 +18,18 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"><line x1="15" y1="0" x2="15" y2="30" stroke="black" stroke-width="1"/><line x1="0" y1="15" x2="30" y2="15" stroke="black" stroke-width="1"/></svg>') 15 15, crosshair;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Prevent automatic highlighting of emails and phone numbers on iOS and Android */
+    a, a[href^="tel"], a[href^="mailto"] {
+      color: inherit;
+      text-decoration: none;
+      pointer-events: none;
     }
 
     /* Karte mit SVG-Rahmen */
@@ -48,42 +59,6 @@
       height: 100%;
       pointer-events: none;
     }
-
-    /* Cursor wird dicker über Texten */
-    .text-top:hover, .text-bottom:hover, .vertical-text:hover {
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"><line x1="15" y1="0" x2="15" y2="30" stroke="black" stroke-width="2"/><line x1="0" y1="15" x2="30" y2="15" stroke="black" stroke-width="2"/></svg>') 15 15, crosshair;
-    }
-
-    /* Vertikaler Text */
-    .vertical-text {
-      position: absolute;
-      top: 50%;
-      right: -155px;
-      transform: translateY(-50%) rotate(90deg);
-      color: #a6a2a2;
-      cursor: pointer;
-      padding: 10px;
-    }
-
-    /* Zickzack-Unterstreichung */
-    .zigzag-underline {
-      position: relative;
-      display: inline-block;
-    }
-    .zigzag-underline svg {
-      position: absolute;
-      left: 0;
-      bottom: -1px;
-      width: 7ch;
-      height: 2px;
-    }
-
-    /* Textpositionen */
-    .text-top, .text-bottom {
-      padding: 10px;
-    }
-    .text-top { position: absolute; bottom: 220px; right: 210px; cursor: pointer; }
-    .text-bottom { position: absolute; bottom: 40px; right: -25px; transform: rotate(-90deg); cursor: pointer; }
   </style>
   <script>
     function setRotation(degrees) {
@@ -114,14 +89,14 @@
                    L80,0 L84,6 L88,0 L92,6 L96,0 L100,6 L104,0 L108,6 L112,0"
                 stroke="black" stroke-width="1" fill="none" />
         </svg></span></p>
-      <p>office@ateliervincenz.com</p>
+      <p><span class="no-highlight">office@ateliervincenz.com</span></p>
     </div>
 
     <div class="text-bottom" onclick="setRotation(90)">
       <p>Diego Vincenz</p>
       <p>Dipl. MSc Arch AAM</p>
-      <p>dv1@ateliervincenz.com</p>
-      <p>+41 78 940 39 54</p>
+      <p><span class="no-highlight">dv1@ateliervincenz.com</span></p>
+      <p><span class="no-highlight">+41 78 940 39 54</span></p>
     </div>
   </div>
 
