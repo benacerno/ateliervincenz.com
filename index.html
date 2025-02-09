@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <title>Atelier Vincenz</title>
   <style>
@@ -57,10 +58,11 @@
     .vertical-text {
       position: absolute;
       top: 50%;
-      right: -145px;
+      right: -155px;
       transform: translateY(-50%) rotate(90deg);
       color: #a6a2a2;
       cursor: pointer;
+      padding: 10px;
     }
 
     /* Zickzack-Unterstreichung */
@@ -77,8 +79,11 @@
     }
 
     /* Textpositionen */
-    .text-top { position: absolute; bottom: 195px; right: 190px; cursor: pointer; }
-    .text-bottom { position: absolute; bottom: 35px; right: -25px; transform: rotate(-90deg); cursor: pointer; }
+    .text-top, .text-bottom {
+      padding: 10px;
+    }
+    .text-top { position: absolute; bottom: 220px; right: 210px; cursor: pointer; }
+    .text-bottom { position: absolute; bottom: 40px; right: -25px; transform: rotate(-90deg); cursor: pointer; }
   </style>
   <script>
     function setRotation(degrees) {
@@ -92,7 +97,7 @@
 </head>
 <body>
 
-  <div class="card rotate-0">
+  <div class="card rotate--90">
     <svg class="border-svg" viewBox="0 0 200 130" preserveAspectRatio="none">
       <line x1="0" y1="-10" x2="0" y2="140" stroke="black" stroke-width="1"/>
       <line x1="-10" y1="0" x2="210" y2="0" stroke="black" stroke-width="1"/>
@@ -114,9 +119,9 @@
 
     <div class="text-bottom" onclick="setRotation(90)">
       <p>Diego Vincenz</p>
-      <p>dv1@ateliervincenz.com</p>
       <p>Dipl. MSc Arch AAM</p>
-      <p>+41 078 940 39 54</p>
+      <p>dv1@ateliervincenz.com</p>
+      <p>+41 78 940 39 54</p>
     </div>
   </div>
 
