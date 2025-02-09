@@ -12,7 +12,7 @@
       height: 100%;
       background-color: #f7f2f2;
       font-family: "Courier New", Courier, monospace;
-      font-size: 11px;
+      font-size: 13px;
       line-height: 1;
       display: flex;
       justify-content: flex-start;
@@ -23,8 +23,8 @@
     /* Karte mit SVG-Rahmen */
     .card {
       position: relative;
-      width: 91mm;
-      height: 61mm;
+      width: 110mm;
+      height: 75mm;
       padding: 10px;
       margin-left: 50px;
       display: flex;
@@ -57,7 +57,7 @@
     .vertical-text {
       position: absolute;
       top: 50%;
-      right: -120px;
+      right: -145px;
       transform: translateY(-50%) rotate(90deg);
       color: #a6a2a2;
       cursor: pointer;
@@ -77,8 +77,8 @@
     }
 
     /* Textpositionen */
-    .text-top { position: absolute; bottom: 165px; right: 160px; cursor: pointer; }
-    .text-bottom { position: absolute; bottom: 30px; right: -20px; transform: rotate(-90deg); cursor: pointer; }
+    .text-top { position: absolute; bottom: 195px; right: 190px; cursor: pointer; }
+    .text-bottom { position: absolute; bottom: 35px; right: -25px; transform: rotate(-90deg); cursor: pointer; }
   </style>
   <script>
     function setRotation(degrees) {
@@ -114,10 +114,9 @@
 
     <div class="text-bottom" onclick="setRotation(90)">
       <p>Diego Vincenz</p>
-      <p>Dipl. MSc Arch AAM</p>
       <p>dv1@ateliervincenz.com</p>
+      <p>Dipl. MSc Arch AAM</p>
       <p>+41 078 940 39 54</p>
-      <p>8004 Zürich</p>
     </div>
   </div>
 
