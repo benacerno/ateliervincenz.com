@@ -1,22 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Architecture Office</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Atelier Vincenz</title>
+  <style>
+    /* Basis-Layout für die gesamte Seite */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      /* Zartrosa Hintergrund wie in deinem Entwurf */
+      background-color: #fceaea;
+      /* Einheitliche Schrift */
+      font-family: "Courier New", Courier, monospace;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    body {
+      display: flex;
+      /* Links ausrichten, vertikal zentrieren */
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    /* Das Rechteck von 91 x 61 mm 
+       (ohne abweichende Hintergrundfarbe => wirkt gleich wie Seite)
+    */
+    .card {
+      position: relative;
+      width: 91mm;
+      height: 61mm;
+      margin-left: 50px; /* Den linken Abstand ggf. anpassen */
+      border: 1px solid black;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+    /* Pluszeichen in den Ecken */
+    .corner {
+      position: absolute;
+      font-weight: bold;
+      font-size: 16px; /* selbe Schriftgrösse wie der Text */
+    }
+    .corner-top-left {
+      top: 0; left: 0;
+      transform: translate(-50%, -50%);
+    }
+    .corner-top-right {
+      top: 0; right: 0;
+      transform: translate(50%, -50%);
+    }
+    .corner-bottom-right {
+      bottom: 0; right: 0;
+      transform: translate(50%, 50%);
+    }
+
+    /* Vertikaler Text am rechten Rand der Karte */
+    .vertical-text {
+      position: absolute;
+      top: 50%;
+      right: -40px; /* Anpassen, bis es optisch stimmig ist */
+      transform: translateY(-50%) rotate(90deg);
+      transform-origin: center center;
+      color: #555;
+    }
+
+    /* Zickzack-Unterstreichung: 
+       Wir nutzen ein Pseudo-Element mit repeating-linear-gradient.
+       Da Courier New monospaced ist, lässt sich so eine 
+       halbwegs “punktgenaue” Zickzack-Linie erzeugen.
+     */
+    .zigzag-underline {
+      position: relative;
+      text-decoration: none; /* normale Unterstreichung unterdrücken */
+      display: inline-block; /* erlaubt exakte Breite für das Pseudo-Element */
+    }
+
+    .zigzag-underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      /* Höhe der Zickzack-Linie; ggf. anpassen */
+      height: 2px;
+      /* Wiederholendes Muster als Zickzack:
+         - 135deg: diagonale Ausrichtung
+         - Der „Schachbrett“-Effekt aus Schwarzem Streifen / Transparent
+         - 2 Pixel Schwarz, dann 2 Pixel transparent = „Zick-Zack“ 
+         Passen die Werte an, bis es sauber unter die Buchstaben passt.
+      */
+      background-image: repeating-linear-gradient(
+        135deg,
+        black 0px,
+        black 2px,
+        transparent 2px,
+        transparent 4px
+      );
+    }
+
+    /* Abstände entfernen, falls gewünscht */
+    .no-margin {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Architectural Office</h1>
-        <p>Innovative Design, Timeless Architecture.</p>
-    </header>
-    <section>
-        <h2>About Us</h2>
-        <p>We specialize in modern and sustainable architecture.</p>
-    </section>
-    <footer>
-        <p>© 2025 My Architecture Office</p>
-    </footer>
+
+  <div class="card">
+    <!-- Plus-Zeichen in den Ecken -->
+    <div class="corner corner-top-left">+</div>
+    <div class="corner corner-top-right">+</div>
+    <div class="corner corner-bottom-right">+</div>
+
+    <!-- Vertikaler Randtext -->
+    <div class="vertical-text">
+      website (and office) in the making
+    </div>
+
+    <!-- Inhalt (linksbündig) -->
+    <p class="no-margin">
+      Atelier <span class="zigzag-underline">Vincenz</span>
+    </p>
+    <p class="no-margin">office@ateliervincenz.com</p>
+
+    <br />
+
+    <p class="no-margin">Diego Vincenz</p>
+    <p class="no-margin">Dipl. MSc Arch AAM</p>
+    <p class="no-margin">office@ateliervincenz.com</p>
+    <p class="no-margin">+41 078 940 39 54</p>
+  </div>
+
 </body>
 </html>
+
