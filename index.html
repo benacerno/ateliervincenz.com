@@ -16,9 +16,10 @@
       font-size: 13px;
       line-height: 1;
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       -webkit-text-size-adjust: none;
+      overflow: hidden;
     }
 
     /* Karte mit SVG-Rahmen */
@@ -27,7 +28,6 @@
       width: 110mm;
       height: 75mm;
       padding: 10px;
-      margin-left: 50px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -57,6 +57,7 @@
       transform: translateY(-50%) rotate(90deg);
       color: #a6a2a2;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     /* Zickzack-Unterstreichung */
@@ -81,16 +82,14 @@
       .card {
         width: 90vw;
         height: auto;
-        margin-left: 5vw;
         transform-origin: center;
       }
       .text-top, .text-bottom, .vertical-text {
-        font-size: 13px;
+        font-size: 12px;
       }
       .vertical-text {
-        right: -100px;
+        right: -80px;
       }
-      html { font-size: 16px; }
     }
   </style>
   <script>
