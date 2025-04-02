@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Atelier Vincenz</title>
   <style>
-    /* Basislayout */
+    /* Basislayout für alle Geräte */
     html, body {
       margin: 0;
       padding: 0;
@@ -15,12 +15,12 @@
       font-size: 11px;
       line-height: 1;
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"><line x1="15" y1="0" x2="15" y2="30" stroke="black" stroke-width="1"/><line x1="0" y1="15" x2="30" y2="15" stroke="black" stroke-width="1"/></svg>') 15 15, crosshair;
     }
 
-    /* Karte mit SVG-Rahmen */
+    /* Karte mit fester Größe und SVG-Rahmen für grosse Bildschirme */
     .card {
       position: relative;
       width: 91mm;
@@ -33,12 +33,12 @@
       transition: transform 0.6s ease-in-out;
     }
 
-    /* Rotationseffekte */
+    /* Rotationseffekte (nur für grosse Bildschirme aktiv) */
     .rotate-0 { transform: rotate(0deg); }
     .rotate-90 { transform: rotate(90deg); }
     .rotate--90 { transform: rotate(-90deg); }
 
-    /* SVG für anpassbaren Rand mit überlappenden Ecken */
+    /* SVG-Rahmen */
     .border-svg {
       position: absolute;
       top: 0;
@@ -48,18 +48,31 @@
       pointer-events: none;
     }
 
-    /* Cursor wird dicker über Texten */
+    /* Cursor-Dickeffekte */
     .text-top:hover, .text-bottom:hover, .vertical-text:hover {
       cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"><line x1="15" y1="0" x2="15" y2="30" stroke="black" stroke-width="2"/><line x1="0" y1="15" x2="30" y2="15" stroke="black" stroke-width="2"/></svg>') 15 15, crosshair;
     }
 
-    /* Vertikaler Text */
+    /* Positionierung der Texte (für grosse Bildschirme) */
     .vertical-text {
       position: absolute;
       top: 50%;
       right: -120px;
       transform: translateY(-50%) rotate(90deg);
       color: #a6a2a2;
+      cursor: pointer;
+    }
+    .text-top {
+      position: absolute;
+      bottom: 165px;
+      right: 160px;
+      cursor: pointer;
+    }
+    .text-bottom {
+      position: absolute;
+      bottom: 30px;
+      right: -20px;
+      transform: rotate(-90deg);
       cursor: pointer;
     }
 
@@ -76,37 +89,38 @@
       height: 2px;
     }
 
-    /* Textpositionen */
-    .text-top { position: absolute; bottom: 165px; right: 160px; cursor: pointer; }
-    .text-bottom { position: absolute; bottom: 30px; right: -20px; transform: rotate(-90deg); cursor: pointer; }
-    
-    /* Anpassungen für kleine Bildschirme (Handy/Tablet) */
+    /* Angepasste Darstellung für kleine Bildschirme (Handy/Tablet) */
     @media only screen and (max-width: 768px) {
-      /* Deaktivierung der Rotationseffekte */
-      .rotate-0,
-      .rotate-90,
-      .rotate--90 {
-        transform: none !important;
-      }
-      /* Optionale Anpassung der Karte für zentrierten Auftritt */
+      /* Karte erhält flexible Dimensionen und zentriert sich */
       .card {
-        margin: 10px auto;
+        width: 90%;
+        max-width: 350px;
+        height: auto;
+        margin: 20px auto;
+        padding: 20px;
       }
-      /* Deaktivierung der interaktiven Klickfunktionen */
+      /* SVG-Rahmen optional ausblenden, damit sich die Box nicht „verzieht“ */
+      .border-svg {
+        display: none;
+      }
+      /* Texte werden relativ positioniert und untereinander dargestellt */
       .vertical-text,
       .text-top,
       .text-bottom {
+        position: static;
+        transform: none;
+        margin: 10px 0;
+        text-align: center;
         pointer-events: none;
-        cursor: default;
       }
     }
   </style>
   <script>
     function setRotation(degrees) {
-      // Nur auf Bildschirmen mit einer Breite > 768px werden die Rotationen ausgeführt.
+      // Rotationen nur auf Bildschirmen mit einer Breite > 768px ausführen.
       if (window.innerWidth <= 768) return;
       const card = document.querySelector('.card');
-      card.className = 'card';
+      card.className = 'card'; // bestehende Rotation entfernen
       if (degrees === 90) card.classList.add('rotate-90');
       else if (degrees === -90) card.classList.add('rotate--90');
       else card.classList.add('rotate-0');
@@ -125,13 +139,15 @@
     
     <div class="vertical-text" onclick="setRotation(-90)">website (and office) in the making</div>
     <div class="text-top" onclick="setRotation(0)">
-      <p>Atelier <span class="zigzag-underline"><span class="zigzag-text">Vincenz</span>
+      <p>Atelier <span class="zigzag-underline">
+        <span class="zigzag-text">Vincenz</span>
         <svg viewBox="0 0 112 6" preserveAspectRatio="none">
           <path d="M0,0 L4,6 L8,0 L12,6 L16,0 L20,6 L24,0 L28,6 L32,0 L36,6
                    L40,0 L44,6 L48,0 L52,6 L56,0 L60,6 L64,0 L68,6 L72,0 L76,6
                    L80,0 L84,6 L88,0 L92,6 L96,0 L100,6 L104,0 L108,6 L112,0"
                 stroke="black" stroke-width="1" fill="none" />
-        </svg></span></p>
+        </svg>
+      </span></p>
       <p>office@ateliervincenz.com</p>
     </div>
 
