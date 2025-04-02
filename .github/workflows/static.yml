@@ -79,9 +79,32 @@
     /* Textpositionen */
     .text-top { position: absolute; bottom: 165px; right: 160px; cursor: pointer; }
     .text-bottom { position: absolute; bottom: 30px; right: -20px; transform: rotate(-90deg); cursor: pointer; }
+    
+    /* Anpassungen für kleine Bildschirme (Handy/Tablet) */
+    @media only screen and (max-width: 768px) {
+      /* Deaktivierung der Rotationseffekte */
+      .rotate-0,
+      .rotate-90,
+      .rotate--90 {
+        transform: none !important;
+      }
+      /* Optionale Anpassung der Karte für zentrierten Auftritt */
+      .card {
+        margin: 10px auto;
+      }
+      /* Deaktivierung der interaktiven Klickfunktionen */
+      .vertical-text,
+      .text-top,
+      .text-bottom {
+        pointer-events: none;
+        cursor: default;
+      }
+    }
   </style>
   <script>
     function setRotation(degrees) {
+      // Nur auf Bildschirmen mit einer Breite > 768px werden die Rotationen ausgeführt.
+      if (window.innerWidth <= 768) return;
       const card = document.querySelector('.card');
       card.className = 'card';
       if (degrees === 90) card.classList.add('rotate-90');
